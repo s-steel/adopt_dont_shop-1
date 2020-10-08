@@ -5,8 +5,8 @@ describe 'shelter show page' do
     Shelter.create(
       name: 'Test Shelter 1',
       address: '1 Test St.',
-      state: 'Denver',
-      city: 'CO',
+      city: 'Denver',
+      state: 'CO',
       zip: 12345
     )
   end
@@ -22,8 +22,8 @@ describe 'shelter show page' do
   it 'can see shelter information' do
     expect(page).to have_content(shelter.name.to_s)
     expect(page).to have_content(shelter.address.to_s)
-    expect(page).to have_content(shelter.state.to_s)
     expect(page).to have_content(shelter.city.to_s)
+    expect(page).to have_content(shelter.state.to_s)
     expect(page).to have_content(shelter.zip.to_s)
   end
 
