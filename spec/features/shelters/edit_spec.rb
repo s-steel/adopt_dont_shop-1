@@ -26,6 +26,21 @@ describe 'shelter edit page' do
     expect(page.has_field?('zip', with: shelter.zip.to_s)).to eq(true)
   end
 
+  it 'can edit a shelter form' do
+    fill_in 'Name', with: 'Test Shelter Edited'
+    fill_in 'Address', with: '1 Test Edit Dr.'
+    fill_in 'City', with: 'Pittsburgh'
+    fill_in 'State', with: 'PA'
+    fill_in 'zip', with: '15432'
+    click_button 'Update Shelter Information'
+
+    expect(page).to have_content('Test Shelter Edited')
+    expect(page).to have_content('1 Test Edit Dr.')
+    expect(page).to have_content('Pittsburgh')
+    expect(page).to have_content('PA')
+    expect(page).to have_content('15432')
+  end
+
   it 'can see submit button' do
     expect(page).to have_button('Update Shelter Information')
   end

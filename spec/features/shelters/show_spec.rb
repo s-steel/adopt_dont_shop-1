@@ -31,7 +31,11 @@ describe 'shelter show page' do
     expect(page).to have_link('Update Shelter')
   end
 
-  it 'can see delete shelter link' do
+  it 'can delete a shelter' do
     expect(page).to have_link('Delete Shelter')
+    
+    click_link 'Delete Shelter'
+    expect(page).to have_content('All Shelters')
+    expect(page).to have_link('New Shelter')
   end
 end
