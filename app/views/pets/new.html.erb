@@ -1,24 +1,22 @@
-<%# <form action="/pets" method="post" id="pet_form"> %>
-<%#   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %1>"> %>
-<%#   <h1>Add a New Adoptable Pet</h1> %>
+<h1>Add a New Adoptable Pet</h1>
 
-<%#   <label for="img">Image URL</label> %>
-<%#   <input type="text" name="pet[zip]" id="img"/></br> %>
+<%= form_with url: '/shelters/:id/pets', method: 'post' do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
 
-<%#   <label for="name">Name</label> %>
-<%#   <input type="text" name="pet[name]" id="name"/></br> %>
+  <%= form.label :image %>
+  <%= form.text_field :image %>
 
-<%#   <label for="desc">Description</label> %>
-<%#   <input type="text" name="pet[address]" id="desc"/></br> %>
+  <%= form.label :description %>
+  <%= form.text_field :description %>
 
-<%#   <label for="age">Age</label> %>
-<%#   <input type="text" name="pet[city]" id="age"/></br> %>
+  <%= form.label :approximate_age %>
+  <%= form.text_field :approximate_age %>
 
-<%#   <label for="sex">Sex</label> %>
-<%#   <input type="text" name="pet[state]" id="sex"/></br> %>
-<%# </form> %>
-<%# </br> %>
-<%# <button type="submit" form="pet_form" value="Submit">Add Pet</button> %>
+  <%= form.label :sex %>
+  <%= form.text_field :sex %>
 
-<%= form_for(@pet) do |form| %>
-
+  <%= hidden_field(:shelter_id, @shelter.id.to_s) %>
+  
+  <%= submit_tag("Add Pet") %>
+<% end %>

@@ -12,16 +12,18 @@ class PetsController < ApplicationController
   end
 
   def create
-require 'pry'; binding.pry
-    pet = Pet.new({
-      image: params[:pet][:image],
-      name: params[:pet][:name],
-      description: params[:pet][:description],
-      approximate_age: params[:pet][:approximate_age],
-      sex: params[:pet][:sex]
+   shelter_id = params[:shelter_id].keys.pop.to_i
+   pet = Pet.new({
+      image: params[:image],
+      name: params[:name],
+      description: params[:description],
+      approximate_age: params[:approximate_age],
+      sex: params[:sex],
+      status: 'Adoptable',
+      shelter_id: shelter_id
     })
 
     pet.save
-    redirect_to '/shelters/:id/pets'
+    redirect_to "/shelters/#{shelter_id}/pets"
   end
 end
