@@ -1,0 +1,24 @@
+<%# <form action="/pets" method="post" id="pet_form"> %>
+<%#   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %1>"> %>
+<%#   <h1>Add a New Adoptable Pet</h1> %>
+
+<%#   <label for="img">Image URL</label> %>
+<%#   <input type="text" name="pet[zip]" id="img"/></br> %>
+
+<%#   <label for="name">Name</label> %>
+<%#   <input type="text" name="pet[name]" id="name"/></br> %>
+
+<%#   <label for="desc">Description</label> %>
+<%#   <input type="text" name="pet[address]" id="desc"/></br> %>
+
+<%#   <label for="age">Age</label> %>
+<%#   <input type="text" name="pet[city]" id="age"/></br> %>
+
+<%#   <label for="sex">Sex</label> %>
+<%#   <input type="text" name="pet[state]" id="sex"/></br> %>
+<%# </form> %>
+<%# </br> %>
+<%# <button type="submit" form="pet_form" value="Submit">Add Pet</button> %>
+
+<%= form_for(@pet) do |form| %>
+
