@@ -1,22 +1,20 @@
 <h1>Add a New Adoptable Pet</h1>
 
-<%= form_with url: '/shelters/:id/pets', method: 'post' do |form| %>
-  <%= form.label :name %>
-  <%= form.text_field :name %>
+<%= form_tag("/shelters/#{@shelter_id}/pets", method: :post) do %>
+  <%= label_tag "Name" %>
+  <%= text_field_tag :name %>
 
-  <%= form.label :image %>
-  <%= form.text_field :image %>
+  <%= label_tag "Image" %>
+  <%= text_field_tag :image %>
 
-  <%= form.label :description %>
-  <%= form.text_field :description %>
+  <%= label_tag "Description" %>
+  <%= text_field_tag :description %>
 
-  <%= form.label :approximate_age %>
-  <%= form.text_field :approximate_age %>
+  <%= label_tag "Age" %>
+  <%= text_field_tag :approximate_age %>
 
-  <%= form.label :sex %>
-  <%= form.text_field :sex %>
-
-  <%= hidden_field(:shelter_id, @shelter.id.to_s) %>
+  <%= label_tag "Sex" %>
+  <%= text_field_tag :sex %>
   
   <%= submit_tag("Add Pet") %>
 <% end %>
