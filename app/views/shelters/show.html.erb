@@ -1,4 +1,5 @@
-<a href="/shelters">Shelters Index</a>
+<h5><%= link_to('Shelters Index', '/shelters') %></h5>
+<h5><%= link_to('Pets Index', '/pets') %></h5>
 
 <h1><%= @shelter.name  %></h1>
 
@@ -6,6 +7,8 @@
 <p><%= @shelter.city %></p>
 <p><%= @shelter.state %></p>
 <p><%= @shelter.zip %></p>
+
+<h4><%= link_to("See All Pets at #{@shelter.name}", "/shelters/#{@shelter.id}/pets") %></h4>
 
 <a href="/shelters/<%= @shelter.id %>/edit">Update Shelter</a>
 </br>

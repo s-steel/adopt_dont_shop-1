@@ -1,3 +1,6 @@
+<h5><%= link_to('Shelters Index', '/shelters') %></h5>
+<h5><%= link_to('Pets Index', '/pets') %></h5>
+
 <form action="/shelters/<%= @shelter.id %>" method="post" id="update_shelter_form">
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
   <input type="hidden" name="_method" value="PATCH" />
