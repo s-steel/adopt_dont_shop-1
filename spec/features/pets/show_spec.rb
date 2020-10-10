@@ -16,15 +16,40 @@ describe 'pet show page' do
     expect(page).to have_content(pet.status)
   end
 
-  it 'can link to update pet information' do
+  it 'can update pet information' do
     expect(page).to have_link('Update Information')
 
     click_link 'Update Information'
+    expect(current_path).to eq("/pets/#{pet.id}/edit")
+
     expect(page).to have_content("Edit #{pet.name}'s Information")
     expect(page.has_field?(:name, with: pet.name)).to eq(true)
     expect(page.has_field?(:image, with: pet.image)).to eq(true)
     expect(page.has_field?(:description, with: pet.description)).to eq(true)
     expect(page.has_field?(:approximate_age, with: pet.approximate_age)).to eq(true)
     expect(page.has_field?(:sex, with: pet.sex)).to eq(true)
+
+    fill_in :name, with: 'Julia'
+    fill_in :image, with: 'none'
+    fill_in :description, with: 'v v cute'
+    fill_in :approximate_age, with: 2
+    fill_in :sex, with: 'Female'
+
+    click_button 'Update Pet'
+    expect(current_path).to eq("/pets/#{pet.id}")
+
+
+    expect(page).to have_content('Julia')
+    expect(page).to have_content('v v cute')
+    expect(page).to have_content('2')
+    expect(page).to have_content('Female')
+    expect(page).to have_content('Adoptable')
+  end
+
+  it 'can delete pet' do
+    expect(page).to have_button('Delete Pet')
+
+    click_button 'Delete Pet'
+    expect(current_path).to eq("/pets")
   end
 end
