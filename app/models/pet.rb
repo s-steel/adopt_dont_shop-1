@@ -1,9 +1,7 @@
 class Pet < ApplicationRecord
   belongs_to :shelter
 
-  def shelter_name(id)
-    Shelter.joins(:pets).uniq.find do |shelter|
-      shelter.id == id
-    end.name
+  def shelter_name(shelter_id)
+    Shelter.joins(:pets).find_by(id: shelter_id).name
   end
 end

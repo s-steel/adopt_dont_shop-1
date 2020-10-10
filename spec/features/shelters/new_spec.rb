@@ -18,10 +18,11 @@ describe 'shelter new page' do
   end
 
   it 'can fill out a new shelter form' do
-    visit "/shelters"
+    visit '/shelters'
+
     click_link 'New Shelter'
-    expect(current_path).to eq('/shelters/new')
-    
+    expect(page).to have_current_path('/shelters/new')
+
     fill_in 'Name', with: 'Brentwood Animal Rescue'
     fill_in 'Address', with: '78 Greenwood Ln.'
     fill_in 'City', with: 'Brentwood'
@@ -29,7 +30,8 @@ describe 'shelter new page' do
     fill_in 'zip', with: '37218'
     click_button 'Create Shelter'
 
-    expect(current_path).to eq('/shelters')
+    expect(page).to have_current_path('/shelters')
+
     expect(page).to have_content('Brentwood Animal Rescue')
 
     click_link 'Brentwood Animal Rescue'

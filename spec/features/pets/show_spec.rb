@@ -20,7 +20,7 @@ describe 'pet show page' do
     expect(page).to have_link('Update Information')
 
     click_link 'Update Information'
-    expect(current_path).to eq("/pets/#{pet.id}/edit")
+    expect(page).to have_current_path("/pets/#{pet.id}/edit")
 
     expect(page).to have_content("Edit #{pet.name}'s Information")
     expect(page.has_field?(:name, with: pet.name)).to eq(true)
@@ -36,8 +36,7 @@ describe 'pet show page' do
     fill_in :sex, with: 'Female'
 
     click_button 'Update Pet'
-    expect(current_path).to eq("/pets/#{pet.id}")
-
+    expect(page).to have_current_path("/pets/#{pet.id}")
 
     expect(page).to have_content('Julia')
     expect(page).to have_content('v v cute')
@@ -50,6 +49,6 @@ describe 'pet show page' do
     expect(page).to have_button('Delete Pet')
 
     click_button 'Delete Pet'
-    expect(current_path).to eq("/pets")
+    expect(page).to have_current_path('/pets')
   end
 end

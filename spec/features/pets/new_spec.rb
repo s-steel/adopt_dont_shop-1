@@ -27,7 +27,7 @@ describe 'pet creation page' do
     fill_in :sex, with: 'Female'
 
     click_button 'Add Pet'
-    expect(current_path).to eq("/shelters/#{shelter.id}/pets")
+    expect(page).to have_current_path("/shelters/#{shelter.id}/pets")
 
     expect(page).to have_link('Edna')
     expect(page).to have_content('8')

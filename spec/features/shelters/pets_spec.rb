@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'shelter pets index page'do
+describe 'shelter pets index page' do
   let!(:shelter) { create(:shelter, name: 'Best Test Shelter') }
   let!(:pet1) { create(:pet, name: 'Edna', approximate_age: 6, sex: 'Female', shelter_id: shelter.id) }
   let!(:pet2) { create(:pet, name: 'Tayla', approximate_age: 2, sex: 'Female', shelter_id: shelter.id) }
@@ -27,7 +27,7 @@ describe 'shelter pets index page'do
     expect(page).to have_link('Create Pet')
 
     click_link 'Create Pet'
-    expect(current_path).to eq("/shelters/#{shelter.id}/pets/new")
+    expect(page).to have_current_path("/shelters/#{shelter.id}/pets/new")
 
     expect(page).to have_content('Add a New Adoptable Pet')
     expect(page.has_field?(:name)).to eq(true)
