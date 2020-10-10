@@ -13,6 +13,18 @@ describe 'shelter pets index page' do
     expect(page).to have_content("These animals from #{shelter.name} are looking for a loving home!")
   end
 
+  it 'can see shelters index link' do
+    expect(page).to have_link('Shelters Index')
+    click_link('Shelters Index')
+    expect(page).to have_current_path('/shelters')
+  end
+
+  it 'can see pets index link' do
+    expect(page).to have_link('Pets Index')
+    click_link('Pets Index')
+    expect(page).to have_current_path('/pets')
+  end
+
   it 'can see all pets at a shelter' do
     expect(page).to have_link(pet1.name)
     expect(page).to have_content(pet1.approximate_age)

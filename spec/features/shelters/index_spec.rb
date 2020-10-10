@@ -1,6 +1,13 @@
 require 'rails_helper'
 
 describe 'shelter index page' do
+  it 'can see pets index link' do
+    visit '/shelters'
+    expect(page).to have_link('Pets Index')
+    click_link('Pets Index')
+    expect(page).to have_current_path('/pets')
+  end
+
   it 'can see title' do
     visit '/shelters'
     expect(page).to have_content('All Shelters')
@@ -28,5 +35,15 @@ describe 'shelter index page' do
 
     click_link ("Edit #{shelter.name}")
     expect(page).to have_current_path("/shelters/#{shelter.id}/edit") 
+  end
+
+  it 'can delete shelter' do
+    shelter = Shelter.create(name: 'Test Shelter 1')
+
+    visit '/shelters'
+    expect(page).to have_button("Delete #{shelter.name}")
+
+    click_button ("Delete #{shelter.name}")
+    expect(page).to have_current_path("/shelters") 
   end
 end

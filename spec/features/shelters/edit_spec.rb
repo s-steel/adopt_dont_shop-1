@@ -15,6 +15,18 @@ describe 'shelter edit page' do
     visit "/shelters/#{shelter.id}/edit"
   end
 
+  it 'can see shelters index link' do
+    expect(page).to have_link('Shelters Index')
+    click_link('Shelters Index')
+    expect(page).to have_current_path('/shelters')
+  end
+
+  it 'can see pets index link' do
+    expect(page).to have_link('Pets Index')
+    click_link('Pets Index')
+    expect(page).to have_current_path('/pets')
+  end
+
   it 'can see title' do
     expect(page).to have_content('Edit Shelter')
   end
