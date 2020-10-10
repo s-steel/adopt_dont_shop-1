@@ -1,49 +1,28 @@
 require 'rails_helper'
 
 describe 'pet index page' do
-  let(:shelter) do
-    Shelter.create(
-      name: 'Test Shelter 1',
-      address: '1 Test St.',
-      city: 'Denver',
-      state: 'CO',
-      zip: 12345
-    )
-  end
-
-  let(:pet1) do
-    Pet.create(
-      name: 'Taylor', 
-      image: 'none', 
-      description: 'cute', 
-      sex: 'male',
-      approximate_age: 30, 
-    ) 
-  end
-
-  let(:pet2) do
-    Pet.create(
-      name: 'Tayla',
-      image: 'none',
-      description: 'very cute',
-      sex: 'male',
-      approximate_age: 27,
-    )
-  end
-
-  before do
-    visit '/pets'
-  end
-
   it 'can see title' do
+    visit '/pets'
     expect(page).to have_content('All Pets') 
   end
 
   it 'can see pets' do
-    factory_pet = build(:pet, name: 'Taylor')
-require 'pry'; binding.pry
-    save_and_open_page
-    expect(page).to have_content(pet1.name)
-    expect(page).to have_content(pet2.name)
+    shelter1 = create(:shelter, name: 'Great Test Shelter')
+    shelter2 = create(:shelter, name: 'Cool Test Shelter')
+    pet1 = create(:pet, name: 'Taylor', approximate_age: 6, sex: 'Male', shelter_id: shelter1.id)
+    pet2 = create(:pet, name: 'Edna', approximate_age: 8, sex: 'Female', shelter_id: shelter2.id)
+
+    visit '/pets'
+    expect(page).to have_link(pet1.name)
+    expect(page).to have_link(pet2.name)
+
+    expect(page).to have_content(pet1.approximate_age)
+    expect(page).to have_content(pet2.approximate_age)
+
+    expect(page).to have_content(pet1.sex)
+    expect(page).to have_content(pet2.sex)
+
+    expect(page).to have_content(shelter1.name)
+    expect(page).to have_content(shelter2.name)
   end
 end
