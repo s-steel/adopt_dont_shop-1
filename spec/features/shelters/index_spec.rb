@@ -19,4 +19,14 @@ describe 'shelter index page' do
     expect(page).to have_link(shelter1.name)
     expect(page).to have_link(shelter2.name)
   end
+
+  it 'can click on update link' do
+    shelter = Shelter.create(name: 'Test Shelter 1')
+
+    visit '/shelters'
+    expect(page).to have_link("Edit #{shelter.name}")
+
+    click_link ("Edit #{shelter.name}")
+    expect(page).to have_current_path("/shelters/#{shelter.id}/edit") 
+  end
 end
