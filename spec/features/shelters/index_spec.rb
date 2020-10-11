@@ -33,8 +33,8 @@ describe 'shelter index page' do
     visit '/shelters'
     expect(page).to have_link("Edit #{shelter.name}")
 
-    click_link ("Edit #{shelter.name}")
-    expect(page).to have_current_path("/shelters/#{shelter.id}/edit") 
+    click_link "Edit #{shelter.name}"
+    expect(page).to have_current_path("/shelters/#{shelter.id}/edit")
   end
 
   it 'can delete shelter' do
@@ -43,7 +43,7 @@ describe 'shelter index page' do
     visit '/shelters'
     expect(page).to have_button("Delete #{shelter.name}")
 
-    click_button ("Delete #{shelter.name}")
-    expect(page).to have_current_path("/shelters") 
+    click_button "Delete #{shelter.name}"
+    expect(page).to have_current_path('/shelters')
   end
 end

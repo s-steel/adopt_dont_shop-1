@@ -44,14 +44,14 @@ describe 'pet index page' do
   it 'can link to update pet' do
     expect(page).to have_link("Update #{pet1.name}'s Information")
 
-    click_link ("Update #{pet1.name}'s Information")
+    click_link "Update #{pet1.name}'s Information"
     expect(page).to have_current_path("/pets/#{pet1.id}/edit")
   end
 
   it 'can delete pet' do
     expect(page).to have_button("Delete #{pet1.name}")
 
-    click_button("Delete #{pet1.name}")
+    click_button "Delete #{pet1.name}"
     expect(page).to have_current_path('/pets')
   end
 end
