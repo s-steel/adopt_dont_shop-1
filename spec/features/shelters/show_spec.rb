@@ -2,7 +2,8 @@ require 'rails_helper'
 
 describe 'shelter show page' do
   let(:shelter) do
-    Shelter.create(
+    create(
+      :shelter,
       name: 'Test Shelter 1',
       address: '1 Test St.',
       city: 'Denver',
@@ -15,8 +16,16 @@ describe 'shelter show page' do
     visit "shelters/#{shelter.id}"
   end
 
-  it 'can see index link' do
+  it 'can see shelters index link' do
     expect(page).to have_link('Shelters Index')
+    click_link('Shelters Index')
+    expect(page).to have_current_path('/shelters')
+  end
+
+  it 'can see pets index link' do
+    expect(page).to have_link('Pets Index')
+    click_link('Pets Index')
+    expect(page).to have_current_path('/pets')
   end
 
   it 'can see shelter information' do
@@ -27,15 +36,20 @@ describe 'shelter show page' do
     expect(page).to have_content(shelter.zip.to_s)
   end
 
+  it 'can see all pets a shelter link' do
+    expect(page).to have_link("See All Pets at #{shelter.name}")
+    click_link("See All Pets at #{shelter.name}")
+    expect(page).to have_current_path("/shelters/#{shelter.id}/pets")
+  end
+
   it 'can see update shelter link' do
     expect(page).to have_link('Update Shelter')
   end
 
   it 'can delete a shelter' do
-    expect(page).to have_link('Delete Shelter')
+    expect(page).to have_button('Delete Shelter')
 
-    click_link 'Delete Shelter'
-    expect(page).to have_content('All Shelters')
-    expect(page).to have_link('New Shelter')
+    click_button 'Delete Shelter'
+    expect(page).to have_current_path('/shelters')
   end
 end

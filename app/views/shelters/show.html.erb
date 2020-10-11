@@ -1,4 +1,5 @@
-<a href="/shelters">Shelters Index</a>
+<h5><%= link_to('Shelters Index', '/shelters') %></h5>
+<h5><%= link_to('Pets Index', '/pets') %></h5>
 
 <h1><%= @shelter.name  %></h1>
 
@@ -7,7 +8,7 @@
 <p><%= @shelter.state %></p>
 <p><%= @shelter.zip %></p>
 
-<a href="/shelters/<%= @shelter.id %>/edit">Update Shelter</a>
-</br>
-</br>
-<a href="/shelters/<%= @shelter.id %>/delete">Delete Shelter</a>
+<h4><%= link_to("See All Pets at #{@shelter.name}", "/shelters/#{@shelter.id}/pets") %></h4>
+
+<h5><%= link_to("Update Shelter", "/shelters/#{@shelter.id}/edit") %></h5>
+<%= button_to("Delete Shelter", "/shelters/#{@shelter.id}", method: :delete) %>
