@@ -4,22 +4,22 @@
 <h1>Edit <%= @pet.name %>'s Information</h1>
 
 <%= form_tag("/pets/#{@pet.id}", method: :patch) do %>
-  <%= label_tag "Name" %>
+  <%= label_tag 'Name' %>
   <%= text_field_tag :name, @pet.name %>
 
-  <%= label_tag "Image" %>
+  <%= label_tag 'Image' %>
   <%= text_field_tag :image, @pet.image %>
 
-  <%= label_tag "Description" %>
+  <%= label_tag 'Description' %>
   <%= text_field_tag :description, @pet.description %>
 
-  <%= label_tag "Age" %>
+  <%= label_tag 'Age' %>
   <%= text_field_tag :approximate_age, @pet.approximate_age %>
 
-  <%= label_tag "Sex" %>
+  <%= label_tag 'Sex' %>
   <%= text_field_tag :sex, @pet.sex %>
 
   <%= hidden_field_tag(:shelter_id, @pet.shelter_id) %>
 
-  <%= submit_tag("Update Pet") %>
+  <%= submit_tag('Update Pet') %>
 <% end %>
