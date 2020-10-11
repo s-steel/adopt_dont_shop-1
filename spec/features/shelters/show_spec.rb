@@ -2,7 +2,8 @@ require 'rails_helper'
 
 describe 'shelter show page' do
   let(:shelter) do
-    Shelter.create(
+    create(
+      :shelter,
       name: 'Test Shelter 1',
       address: '1 Test St.',
       city: 'Denver',
@@ -46,10 +47,9 @@ describe 'shelter show page' do
   end
 
   it 'can delete a shelter' do
-    expect(page).to have_link('Delete Shelter')
+    expect(page).to have_button('Delete Shelter')
 
-    click_link 'Delete Shelter'
-    expect(page).to have_content('All Shelters')
-    expect(page).to have_link('New Shelter')
+    click_button 'Delete Shelter'
+    expect(page).to have_current_path('/shelters')
   end
 end
