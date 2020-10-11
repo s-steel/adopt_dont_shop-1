@@ -30,8 +30,15 @@ describe 'pet index page' do
     expect(page).to have_content(pet1.sex)
     expect(page).to have_content(pet2.sex)
 
-    expect(page).to have_content(shelter1.name)
-    expect(page).to have_content(shelter2.name)
+    expect(page).to have_link(shelter1.name)
+    expect(page).to have_link(shelter2.name)
+  end
+
+  it 'can link to pets shelter' do
+    expect(page).to have_link(shelter1.name)
+
+    click_link(shelter1.name)
+    expect(page).to have_current_path("/shelters/#{shelter1.id}")
   end
 
   it 'can link to update pet' do
