@@ -5,6 +5,18 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.find(params[:id])
+  end
+
+  def create
+    user = User.new(user_params)
+
+    user.save
+    redirect_to "/users/#{user.id}"
+  end
+
+  private
+
+  def user_params
+    params.permit(:name, :address, :city, :state, :zip)
   end
 end
