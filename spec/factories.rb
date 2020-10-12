@@ -5,4 +5,7 @@ FactoryBot.define do
   factory :pet do
     image { 'none' }
   end
+
+  factory :user do
+  end 
 end
