@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 describe 'User show page' do
-  let(:user) do
-    create(:user,
-            name: 'Bob Bobby',
-            address: '123 Main St',
-            city: 'Denver',
-            state: 'CO',
-            zip: 84361)
+  # let(:user) do
+  #   # create(:user,
+  #   #         name: 'Bob Bobby',
+  #   #         address: '123 Main St',
+  #   #         city: 'Denver',
+  #   #         state: 'CO',
+  #   #         zip: 84361)
   end
 
   before do
