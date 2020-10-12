@@ -20,5 +20,17 @@ describe 'User show page' do
     expect(page).to have_content(user.city)
     expect(page).to have_content(user.state)
     expect(page).to have_content(user.zip)
-  end 
+  end
+
+  it 'can see shelters index link' do
+    expect(page).to have_link('Shelters Index')
+    click_link('Shelters Index')
+    expect(page).to have_current_path('/shelters')
+  end
+
+  it 'can see pets index link' do
+    expect(page).to have_link('Pets Index')
+    click_link('Pets Index')
+    expect(page).to have_current_path('/pets')
+  end
 end
