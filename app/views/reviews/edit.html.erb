@@ -1,0 +1,29 @@
+<h5><%= link_to('Shelters Index', '/shelters') %></h5>
+<h5><%= link_to('Pets Index', '/pets') %></h5>
+
+<h3>Edit Your Review</h3>
+<%= form_tag("/shelters/#{@shelter.id}/reviews/#{@review.id}", method: :patch) do %>
+  <div>
+    <%= label_tag "Title" %>
+    <%= text_field_tag :title, @review.title %>
+  </div>
+  <div>
+    <%= label_tag "Rating" %>
+    <%= text_field_tag :rating, @review.rating %>
+  </div>
+  <div>
+    <%= label_tag "Your Review" %>
+    <%= text_area_tag :content, @review.content %>
+  </div>
+  <div>
+    <%= label_tag "Image URL(optional)" %>
+    <%= text_field_tag :image, @review.image %>
+  </div>
+  <div>
+    <%= label_tag "User name" %>
+    <%= text_field_tag :username, @review.user_name %>
+  </div>
+  <div>
+  <%= submit_tag("Edit Review") %>
+  </div>
+<% end %>

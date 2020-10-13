@@ -25,5 +25,7 @@ Rails.application.routes.draw do
   post '/users/:id', to: 'users#create'
 
   get '/shelters/:id/reviews/new', to: 'reviews#new'
+  get '/shelters/:id/reviews/:review_id/edit', to: 'reviews#edit'
   post '/shelters/:id', to: 'reviews#create'
+  patch '/shelters/:id/reviews/:review_id', to: 'reviews#update'
 end
