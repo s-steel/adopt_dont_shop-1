@@ -1,10 +1,13 @@
 class ReviewsController < ApplicationController
   def new
-    @review_id = Review.find(params[:id])
+    @shelter_id = params[:id]
   end
 
   def create
+    shelter = Shelter.find(params[:id])
     review = Review.new(review_params)
+    review[:shelter_id] = shelter.id
+    review[:user_id] = 2 
 
     review.save
     redirect_to "/shelters/#{review_params[:shelter_id]}"
