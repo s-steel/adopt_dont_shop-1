@@ -5,12 +5,12 @@ class ReviewsController < ApplicationController
 
   def create
     shelter = Shelter.find(params[:id])
+    user = User.find_by(name: params[:username])
     review = Review.new(review_params)
     review[:shelter_id] = shelter.id
-    review[:user_id] = 2 
-
+    review[:user_id] = user.id
     review.save
-    redirect_to "/shelters/#{review_params[:shelter_id]}"
+    redirect_to "/shelters/#{review[:shelter_id]}"
   end
 
   private
