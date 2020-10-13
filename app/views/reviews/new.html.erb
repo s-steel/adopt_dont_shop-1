@@ -1,20 +1,27 @@
 <h1>Add a New Review</h1>
 
 <%= form_tag("/shelters/#{@shelter_id}", method: :post) do %>
-  <%= label_tag "Title" %>
-  <%= text_field_tag :title %>
-
-  <%= label_tag "Rating" %>
-  <%= text_field_tag :rating %>
-
-  <%= label_tag "Content" %>
-  <%= text_field_tag :content %>
-
-  <%= label_tag "Image URL(optional)" %>
-  <%= text_field_tag :image %>
-
-  <%= label_tag "User name" %>
-  <%= text_field_tag :username %>
-
+  <div>
+    <%= label_tag "Title" %>
+    <%= text_field_tag :title %>
+  </div>
+  <div>
+    <%= label_tag "Rating" %>
+    <%= text_field_tag :rating %>
+  </div>
+  <div>
+    <%= label_tag "Your Review" %>
+    <%= text_area_tag :content %>
+  </div>
+  <div>
+    <%= label_tag "Image URL(optional)" %>
+    <%= text_field_tag :image %>
+  </div>
+  <div>
+    <%= label_tag "User name" %>
+    <%= text_field_tag :username %>
+  </div>
+  <div>
   <%= submit_tag("Add Review") %>
+  </div>
 <% end %>
