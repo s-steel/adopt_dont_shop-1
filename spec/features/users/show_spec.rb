@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 describe 'User show page' do
-  let(:user) do
+  let!(:shelter) { create(:shelter, name: 'Best Test Shelter') }
+  let!(:user) do
     create(:user,
             name: 'Bob Bobby',
             address: '123 Main St',
@@ -9,6 +10,7 @@ describe 'User show page' do
             state: 'CO',
             zip: 84361)
   end
+  let!(:review) { create(:review, title: 'Test', rating: 3, content: 'Terrible', user_id: user.id, shelter_id: shelter.id)}
 
   before do
     visit "/users/#{user.id}"
@@ -32,5 +34,12 @@ describe 'User show page' do
     expect(page).to have_link('Pets Index')
     click_link('Pets Index')
     expect(page).to have_current_path('/pets')
+  end
+
+  it 'can see all reviews' do
+    expect(page).to have_content("#{user.name}'s Reviews")
+    expect(page).to have_content(review.title)
+    expect(page).to have_content(review.rating)
+    expect(page).to have_content(review.content)
   end
 end

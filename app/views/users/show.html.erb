@@ -7,3 +7,10 @@
 <p><%= @user.city %></p>
 <p><%= @user.state %></p>
 <p><%= @user.zip %></p>
+
+<h3><%= @user.name %>'s Reviews</h3>
+<% @user.reviews.each do |review| %>
+  <p>Title:   <%= review.title %></p>
+  <p>Rating:  <%= review.rating %> / 5 </p>
+  <p>Content: <%= review.content %></p><br>
+<% end %>
