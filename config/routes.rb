@@ -23,4 +23,7 @@ Rails.application.routes.draw do
   get '/users/new', to: 'users#new'
   get '/users/:id', to: 'users#show'
   post '/users/:id', to: 'users#create'
+
+  get '/shelters/:id/reviews/new', to: 'reviews#new'
+  post '/shelters/:shelter_id', to: 'reviews#create'
 end

@@ -14,6 +14,7 @@
 <%= button_to("Delete Shelter", "/shelters/#{@shelter.id}", method: :delete) %>
 
 <h3>Reviews</h3>
+<h5><%= link_to('Add Review', "/shelters/#{@shelter.id}/reviews/new") %></h5>
 
 <% @reviews.each do |review| %>
   <p>Title:   <%= review.title %></p>
