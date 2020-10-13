@@ -8,4 +8,7 @@ FactoryBot.define do
 
   factory :user do
   end 
+
+  factory :review do
+  end
 end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'shelter show page' do
-  let(:shelter) do
+  let!(:shelter) do
     create(
       :shelter,
       name: 'Test Shelter 1',
@@ -11,6 +11,10 @@ describe 'shelter show page' do
       zip: 12345
     )
   end
+
+  let!(:user) { create(:user, name: 'Jim Jones') }
+  let!(:review) { create(:review, title: 'Great!', rating: 5,
+          content: 'Really good', shelter_id: shelter.id, user_id: user.id) }
 
   before do
     visit "shelters/#{shelter.id}"
@@ -40,6 +44,14 @@ describe 'shelter show page' do
     expect(page).to have_link("See All Pets at #{shelter.name}")
     click_link("See All Pets at #{shelter.name}")
     expect(page).to have_current_path("/shelters/#{shelter.id}/pets")
+  end
+
+  it 'can see reviews' do 
+    expect(page).to have_content('Reviews')
+    expect(page).to have_content(review.title)
+    expect(page).to have_content(review.rating)
+    expect(page).to have_content(review.content)
+    expect(page).to have_content(user.name)
   end
 
   it 'can see update shelter link' do
