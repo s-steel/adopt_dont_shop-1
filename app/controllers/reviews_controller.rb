@@ -7,13 +7,17 @@ class ReviewsController < ApplicationController
   def create
     review = Review.new(review_params)
     review.shelter_id = Shelter.find(params[:id]).id
-    if review.valid? && User.exists?(name: params[:username])
+    
+    if User.exists?(name: params[:username])
       review.user_id = User.find_by(name: params[:username]).id
+    else
+      flash[:error] = 'ERROR: You must be a user to leave a review'   
+      return redirect_to "/shelters/#{review[:shelter_id]}/reviews/new"
+    end
+
+    if review.valid?
       review.save
       redirect_to "/shelters/#{review[:shelter_id]}"
-    elsif User.exists?(name: params[:username]) == false
-      flash[:error] = "Please Enter a Valid User"
-      redirect_to "/shelters/#{review[:shelter_id]}/reviews/new"
     else
       flash[:error] = "Error: You Must Add A Title, Rating, and Content"
       redirect_to "/shelters/#{review[:shelter_id]}/reviews/new"
@@ -28,6 +32,7 @@ class ReviewsController < ApplicationController
   def update
     review = Review.find(params[:review_id])
     review.update(review_params)
+
     if review.valid? && User.exists?(name: params[:username])
       review.save
       redirect_to "/shelters/#{params[:id]}"
