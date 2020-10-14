@@ -8,6 +8,9 @@
 <p><%= @user.state %></p>
 <p><%= @user.zip %></p>
 
+<h4><%= @user.name %>'s Average Review Rating</h4>
+<p><%= @user.average_review_rating %> / 5</p>
+
 <h3><%= @user.name %>'s Reviews</h3>
 <% @user.reviews.each do |review| %>
   <p>Title:   <%= review.title %></p>
