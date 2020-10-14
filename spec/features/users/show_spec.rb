@@ -10,7 +10,8 @@ describe 'User show page' do
             state: 'CO',
             zip: 84361)
   end
-  let!(:review) { create(:review, title: 'Test', rating: 3, content: 'Terrible', user_id: user.id, shelter_id: shelter.id)}
+  let!(:review1) { create(:review, title: 'Test', rating: 1, content: 'Terrible', user_id: user.id, shelter_id: shelter.id)}
+  let!(:review2) { create(:review, title: 'Test Two', rating: 4, content: 'Great!', user_id: user.id, shelter_id: shelter.id)}
 
   before do
     visit "/users/#{user.id}"
@@ -36,10 +37,15 @@ describe 'User show page' do
     expect(page).to have_current_path('/pets')
   end
 
+  it 'can see average rating' do
+    expect(page).to have_content("#{user.name}'s Average Review Rating")
+    expect(page).to have_content("2.5 / 5")
+  end
+
   it 'can see all reviews' do
     expect(page).to have_content("#{user.name}'s Reviews")
-    expect(page).to have_content(review.title)
-    expect(page).to have_content(review.rating)
-    expect(page).to have_content(review.content)
+    expect(page).to have_content(review1.title)
+    expect(page).to have_content(review1.rating)
+    expect(page).to have_content(review1.content)
   end
 end
