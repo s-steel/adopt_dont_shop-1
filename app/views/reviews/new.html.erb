@@ -1,6 +1,9 @@
 <h1>Add a New Review</h1>
 
 <%= form_tag("/shelters/#{@shelter_id}", method: :post) do %>
+<% if flash[:error] %>
+<%= flash[:error] %>
+<% end %>
   <div>
     <%= label_tag "Title" %>
     <%= text_field_tag :title %>

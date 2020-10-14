@@ -1,4 +1,5 @@
 class ReviewsController < ApplicationController
+
   def new
     @shelter_id = params[:id]
   end
@@ -6,9 +7,17 @@ class ReviewsController < ApplicationController
   def create
     review = Review.new(review_params)
     review.shelter_id = Shelter.find(params[:id]).id
-    review.user_id = User.find_by(name: params[:username]).id
-    review.save
-    redirect_to "/shelters/#{review[:shelter_id]}"
+    if review.valid? && User.exists?(name: params[:username])
+      review.user_id = User.find_by(name: params[:username]).id
+      review.save
+      redirect_to "/shelters/#{review[:shelter_id]}"
+    elsif User.exists?(name: params[:username]) == false
+      flash[:error] = "Please Enter a Valid User"
+      redirect_to "/shelters/#{review[:shelter_id]}/reviews/new"
+    else
+      flash[:error] = "Error: You Must Add A Title, Rating, and Content"
+      redirect_to "/shelters/#{review[:shelter_id]}/reviews/new"
+    end
   end
 
   def edit
