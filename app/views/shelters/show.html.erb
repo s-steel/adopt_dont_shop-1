@@ -25,4 +25,5 @@
     <p><%= image_tag(review.image) %></p>
   <% end %>
   <%= link_to 'Edit Review', "/shelters/#{@shelter.id}/reviews/#{review.id}/edit" %><br><br>
+  <%= button_to 'Delete Review', "/shelters/#{@shelter.id}/reviews/#{review.id}", method: :delete %><br><br>
 <% end %>

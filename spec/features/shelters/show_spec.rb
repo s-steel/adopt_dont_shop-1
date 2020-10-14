@@ -8,7 +8,7 @@ describe 'shelter show page' do
       address: '1 Test St.',
       city: 'Denver',
       state: 'CO',
-      zip: 12345
+      zip: 12346
     )
   end
 
@@ -46,7 +46,7 @@ describe 'shelter show page' do
     expect(page).to have_current_path("/shelters/#{shelter.id}/pets")
   end
 
-  it 'can see reviews' do 
+  it 'can see reviews' do
     expect(page).to have_content('Reviews')
     expect(page).to have_content(review.title)
     expect(page).to have_content(review.rating)
@@ -63,5 +63,17 @@ describe 'shelter show page' do
 
     click_button 'Delete Shelter'
     expect(page).to have_current_path('/shelters')
+  end
+
+  it 'can delete a review' do
+    expect(page).to have_button('Delete Review')
+
+    click_button 'Delete Review'
+    expect(page).to have_current_path("/shelters/#{shelter.id}")
+
+    expect(page).to_not have_content(review.title)
+    expect(page).to_not have_content(review.rating)
+    expect(page).to_not have_content(review.content)
+    expect(page).to_not have_content(user.name)
   end
 end
