@@ -30,4 +30,28 @@ describe 'pet show page' do
     expect(page).to have_content('Great')
     expect(page).to have_content(user.name)
   end
+
+  it 'can validate form' do
+    fill_in :title, with: nil 
+    fill_in :rating, with: 3
+    fill_in :content, with: 'Great'
+    fill_in :username, with: 'Rick'
+
+    click_button 'Edit Review'
+    expect(page).to have_current_path("/shelters/#{shelter.id}/reviews/#{review.id}/edit")
+    expect(page).to have_content('Edit Your Review')
+    expect(page).to have_content('Error: You Must Add A Title, Rating, and Content')
+  end
+
+  it 'can validate user' do
+    fill_in :title, with: 'Test'
+    fill_in :rating, with: 3
+    fill_in :content, with: 'Great'
+    fill_in :username, with: 'Taylor'
+
+    click_button 'Edit Review'
+    expect(page).to have_current_path("/shelters/#{shelter.id}/reviews/#{review.id}/edit")
+    expect(page).to have_content('Edit Your Review')
+    expect(page).to have_content('Please Enter a Valid User')
+  end
 end

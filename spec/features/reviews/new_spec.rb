@@ -21,7 +21,6 @@ describe 'review new page' do
   end
 
   it 'can fill out a new review form' do
-
     fill_in :title, with: 'Test'
     fill_in :rating, with: 3
     fill_in :content, with: 'Great'
@@ -35,5 +34,28 @@ describe 'review new page' do
     expect(page).to have_content(3)
     expect(page).to have_content('Great')
     expect(page).to have_content('Rick')
+  end
+
+  it 'can validate form' do
+    fill_in :rating, with: 3
+    fill_in :content, with: 'Great'
+    fill_in :username, with: 'Rick'
+
+    click_button 'Add Review'
+    expect(page).to have_current_path("/shelters/#{shelter.id}/reviews/new")
+    expect(page).to have_content('Add a New Review')
+    expect(page).to have_content('Error: You Must Add A Title, Rating, and Content')
+  end
+
+  it 'can validate user' do
+    fill_in :title, with: 'Test'
+    fill_in :rating, with: 3
+    fill_in :content, with: 'Great'
+    fill_in :username, with: 'Taylor'
+
+    click_button 'Add Review'
+    expect(page).to have_current_path("/shelters/#{shelter.id}/reviews/new")
+    expect(page).to have_content('Add a New Review')
+    expect(page).to have_content('ERROR: You must be a user to leave a review')
   end
 end
