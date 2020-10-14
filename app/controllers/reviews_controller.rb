@@ -28,8 +28,16 @@ class ReviewsController < ApplicationController
   def update
     review = Review.find(params[:review_id])
     review.update(review_params)
-    review.save
-    redirect_to "/shelters/#{params[:id]}"
+    if review.valid? && User.exists?(name: params[:username])
+      review.save
+      redirect_to "/shelters/#{params[:id]}"
+    elsif User.exists?(name: params[:username]) == false
+      flash[:error] = "Please Enter a Valid User"
+      redirect_to "/shelters/#{params[:id]}/reviews/#{params[:review_id]}/edit"
+    else
+      flash[:error] = "Error: You Must Add A Title, Rating, and Content"
+      redirect_to "/shelters/#{params[:id]}/reviews/#{params[:review_id]}/edit"
+    end
   end
 
   def destroy
