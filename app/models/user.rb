@@ -8,6 +8,14 @@ class User < ApplicationRecord
   def average_review_rating
     return 0 if reviews.empty?
 
-    reviews.average(:rating).round(1)    
+    reviews.average(:rating).round(1)
+  end
+
+  def review_best_rating
+    reviews.order(rating: :desc).limit(1).first
+  end
+
+  def review_worst_rating
+    reviews.order(:rating).limit(1).first
   end
 end
