@@ -8,25 +8,31 @@
 <p><%= @user.state %></p>
 <p><%= @user.zip %></p>
 
-<h4><%= @user.name %>'s Average Review Rating</h4>
-<p><%= @user.average_review_rating %> / 5</p>
+<% unless @user.reviews.empty? %>
 
-<section id='highligthed-reviews'>
-  <h3>Highlighted Reviews</h3>
-    <h4><%= @user.name %>'s Highest Rated Review</h4>
-      <p>Title:   <%= @user.review_best_rating.title %></p>
-      <p>Rating:  <%= @user.review_best_rating.rating %> / 5 </p>
-      <p>Content: <%= @user.review_best_rating.content %></p><br>
+  <h4><%= @user.name %>'s Average Review Rating</h4>
+  <p><%= @user.average_review_rating %> / 5</p>
 
-    <h4><%= @user.name %>'s Worst Rated Review</h4>
-      <p>Title:   <%= @user.review_worst_rating.title %></p>
-      <p>Rating:  <%= @user.review_worst_rating.rating %> / 5 </p>
-      <p>Content: <%= @user.review_worst_rating.content %></p><br>
-</section>
+  <section id='highlighted-reviews'>
+    <h3>Highlighted Reviews</h3>
+      <h4><%= @user.name %>'s Highest Rated Review</h4>
+        <p>Title:   <%= @user.review_best_rating.title %></p>
+        <p>Rating:  <%= @user.review_best_rating.rating %> / 5 </p>
+        <p>Content: <%= @user.review_best_rating.content %></p><br>
 
-<h3><%= @user.name %>'s Reviews</h3>
-<% @user.reviews.each do |review| %>
-  <p>Title:   <%= review.title %></p>
-  <p>Rating:  <%= review.rating %> / 5 </p>
-  <p>Content: <%= review.content %></p><br>
+      <h4><%= @user.name %>'s Worst Rated Review</h4>
+        <p>Title:   <%= @user.review_worst_rating.title %></p>
+        <p>Rating:  <%= @user.review_worst_rating.rating %> / 5 </p>
+        <p>Content: <%= @user.review_worst_rating.content %></p><br>
+  </section>
+
+  <h3><%= @user.name %>'s Reviews</h3>
+  <% @user.reviews.each do |review| %>
+    <p>Title:   <%= review.title %></p>
+    <p>Rating:  <%= review.rating %> / 5 </p>
+    <p>Content: <%= review.content %></p><br>
+  <% end %>
+<% else %>
+  <h3>User has no reviews yet</h3>
+
 <% end %>
