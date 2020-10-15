@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :reviews
+  has_many :user_applications
 
   def reviews
     Review.where(user_id: self.id)
