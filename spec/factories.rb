@@ -11,4 +11,10 @@ FactoryBot.define do
 
   factory :review do
   end
+
+  factory :user_application do
+  end
+
+  factory :application_pet do
+  end
 end
