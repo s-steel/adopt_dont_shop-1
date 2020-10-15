@@ -4,10 +4,6 @@
 <h3>Edit Your Review</h3>
 <%= form_tag("/shelters/#{@shelter.id}/reviews/#{@review.id}", method: :patch) do %>
 
-<% if flash[:error] %>
-  <%= flash[:error] %>
-<% end %>
-
   <div>
     <%= label_tag "Title" %>
     <%= text_field_tag :title, @review.title %>

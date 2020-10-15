@@ -1,0 +1,14 @@
+<h5><%= link_to('Shelters Index', '/shelters') %></h5>
+<h5><%= link_to('Pets Index', '/pets') %></h5>
+
+<h1>Fill Out Your Application:</h1>
+
+<%= form_tag("/applications/:id", method: :post) do %>
+  <%= label_tag "User name" %>
+  <%= text_field_tag :username %><br>
+
+  <%= label_tag 'Description' %>
+  <%= text_area_tag :description %>
+
+  <%= submit_tag('Submit') %>
+<% end %>
