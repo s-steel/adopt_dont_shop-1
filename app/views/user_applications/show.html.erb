@@ -1,0 +1,19 @@
+<h1>Application <%= @application.id%></h1>
+
+<h4>Application Status</h4>
+<p><%= @application.status %></p>
+
+<h4><%= @application.user_name %></h4>
+<p><%= @application.user_address %></p>
+<p><%= @application.user_city %></p>
+<p><%= @application.user_state %></p>
+<p><%= @application.user_zip %></p>
+
+<h4>Description</h4>
+<p><%= @application.description %></p>
+
+<h4>Pets</h4>
+<% @application.pets.each do |pet| %>
+  <p><%= link_to("#{pet.name}", "/pets/#{pet.id}") %></p>
+<% end %>
+
