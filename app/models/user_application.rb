@@ -3,6 +3,8 @@ class UserApplication < ApplicationRecord
   has_many :application_pets
   has_many :pets, through: :application_pets
 
+  validates_presence_of :description
+
   def user_name
     User.joins(:user_applications).find_by(id: user_id).name 
   end
@@ -24,7 +26,7 @@ class UserApplication < ApplicationRecord
   end
 
   def pets
-    pet_ids = ApplicationPets.where(user_application_id: id).pluck(:pet_id)
+    pet_ids = ApplicationPet.where(user_application_id: id).pluck(:pet_id)
 
     pet_ids.map do |pet_id|
       Pet.find_by(id: pet_id)
