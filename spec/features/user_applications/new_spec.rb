@@ -43,4 +43,13 @@ describe 'application new page' do
     expect(page).to have_content(app_new.description)
     expect(page).to have_content("Pets")
   end
+
+  it 'must be a user to submit an application' do
+    fill_in :username, with: 'John'
+    fill_in :description, with: 'Pets for me'
+
+    click_button 'Submit'
+    expect(page).to have_current_path("/applications/new")
+    expect(page).to have_content('ERROR: User could not be found')
+  end
 end
