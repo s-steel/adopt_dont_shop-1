@@ -7,7 +7,8 @@ describe Pet, type: :model do
 
   describe 'relationships' do
     it { should belong_to :shelter }
-    # it { should have_many :user_applications }
+    it { should have_many :application_pets }
+    it { should have_many(:user_applications).through(:application_pets) }
   end
 
   describe 'class methods' do
@@ -15,8 +16,12 @@ describe Pet, type: :model do
     let(:shelter2) { create(:shelter, name: 'Coolest Shelter') }
     let(:pet) { create(:pet, name: 'Edna', approximate_age: 6, sex: 'Female', shelter_id: shelter1.id) }
 
-    it '.shelter_name' do
-      expect(pet.shelter_name(pet.shelter_id)).to eq('Best Test Shelter')
+    it '#shelter_name' do
+      expect(pet.shelter_name(pet.shelter_id)).to eq(shelter1.name)
     end
+
+    # it '#search' do
+    #   expect(self.search('Edna')).to eq(pet.name)
+    # end
   end
 end
