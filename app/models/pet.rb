@@ -5,6 +5,10 @@ class Pet < ApplicationRecord
 
   validates_presence_of :name
 
+  def self.search(name)
+    where(name: name)
+  end
+
   def shelter_name(shelter_id)
     Shelter.joins(:pets).find_by(id: shelter_id).name
   end
