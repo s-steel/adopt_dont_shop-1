@@ -31,4 +31,14 @@ describe 'application show page' do
     expect(page).to have_link(pet1.name)
     expect(page).to have_link(pet2.name)
   end
+
+  it 'add pets to application' do
+    expect(page).to have_content("Add Pets to Application")
+    fill_in :search, with: pet3.name
+    click_button 'Search'
+    expect(page).to have_content(pet3.name)
+    expect(page).to have_button("Adopt #{pet3.name}")
+    click_button "Adopt #{pet3.name}"
+    expect(page).to have_content(pet3.name)
+  end
 end

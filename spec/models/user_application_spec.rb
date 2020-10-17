@@ -20,31 +20,31 @@ describe UserApplication, type: :model do
     let!(:pet3) { create(:pet, name: 'Taylor', approximate_age: 1, sex: 'Female', shelter_id: shelter1.id) }
 
     let!(:user_application) { create(:user_application, description: "I'd love to Adopt!", status: "Pending", user_id: user.id)  }
-    let!(:application_pet1) { create(:application_pet, user_application_id: user_application.id, pet_id: pet1.id) } 
-    let!(:application_pet2) { create(:application_pet, user_application_id: user_application.id, pet_id: pet2.id) } 
+    let!(:application_pet1) { create(:application_pet, user_application_id: user_application.id, pet_id: pet1.id) }
+    let!(:application_pet2) { create(:application_pet, user_application_id: user_application.id, pet_id: pet2.id) }
 
-    it '.user_name' do
+    it '#user_name' do
       expect(user_application.user_name).to eq(user.name)
     end
 
-    it '.user_address' do
+    it '#user_address' do
       expect(user_application.user_address).to eq(user.address)
     end
 
-    it '.user_city' do
+    it '#user_city' do
       expect(user_application.user_city).to eq(user.city)
     end
 
-    it '.user_state' do
+    it '#user_state' do
       expect(user_application.user_state).to eq(user.state)
     end
 
-    it '.user_zip' do
+    it '#user_zip' do
       expect(user_application.user_zip).to eq(user.zip)
     end
 
-    it '.pets' do
-      expect(user_application.pets).to eq([pet1, pet2])
+    it '#add_pet' do
+      expect(user_application.add_pet(pet3)).to eq(user_application.pets)
     end
   end
 end
