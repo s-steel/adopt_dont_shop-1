@@ -3,27 +3,40 @@
 <h4>Application Status</h4>
 <p><%= @application.status %></p>
 
+
 <h4><%= @application.user_name %></h4>
 <p><%= @application.user_address %></p>
 <p><%= @application.user_city %></p>
 <p><%= @application.user_state %></p>
 <p><%= @application.user_zip %></p>
 
-<h4>Description</h4>
-<p><%= @application.description %></p>
+<% if !(@application.pets.empty?) && (@application.status == 'In Progress')%>
+  <%= form_tag("/applications/#{@application.id}", method: :patch) do %>
+    <h4><%= label_tag 'Why would you make a good pet owner?' %><br>
+    <%= text_area_tag(:description, params[:description]) %><br>
+    <%= submit_tag('Submit Application') %>
+  <% end %>
+<% end %>
+
+<% if @application.status != 'In Progress' %>
+  <h4>Description</h4>
+  <p><%= @application.description %></p>
+<% end %>
 
 <h4>Pets</h4>
 <% @application.pets.each do |pet| %>
   <p><%= link_to("#{pet.name}", "/pets/#{pet.id}") %></p>
 <% end %>
 
-<h5>Add Pets to Application</h5>
-<%= form_tag("/applications/#{@application.id}", method: :get) do %>
-  <%= text_field_tag(:search, params[:search]) %>
-  <%= submit_tag('Search') %>
-<% end %>
+<% if @application.status == 'In Progress' %>
+  <h5>Add Pets to Application</h5>
+  <%= form_tag("/applications/#{@application.id}", method: :get) do %>
+    <%= text_field_tag(:search, params[:search]) %>
+    <%= submit_tag('Search') %>
+  <% end %>
 
-<% @search.each do |pet| %>
-  <p><%= link_to(pet.name, "/pets/#{pet.id}") %></p>
-  <p><%= button_to("Adopt #{pet.name}", "/applications/#{@application.id}/#{pet.id}", method: :patch) %></p>
+  <% @search.each do |pet| %>
+    <p><%= link_to(pet.name, "/pets/#{pet.id}") %></p>
+    <p><%= button_to("Adopt #{pet.name}", "/applications/#{@application.id}/#{pet.id}", method: :patch) %></p>
+  <% end %>
 <% end %>

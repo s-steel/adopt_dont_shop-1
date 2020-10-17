@@ -19,13 +19,11 @@ describe 'application new page' do
   it 'new application page' do
     expect(page).to have_content("Fill Out Your Application")
     expect(page.has_field?(:username, type: 'text')).to eq(true)
-    expect(page.has_field?(:description, type: 'textarea')).to eq(true)
     expect(page).to have_button('Submit')
   end
 
   it 'fill out form and submit' do
     fill_in :username, with: 'Rick'
-    fill_in :description, with: 'Doggie Now'
     click_button 'Submit'
     app_new = UserApplication.last
 
@@ -39,14 +37,11 @@ describe 'application new page' do
     expect(page).to have_content(app_new.user_city)
     expect(page).to have_content(app_new.user_state)
     expect(page).to have_content(app_new.user_zip)
-    expect(page).to have_content("Description")
-    expect(page).to have_content(app_new.description)
     expect(page).to have_content("Pets")
   end
 
   it 'must be a user to submit an application' do
     fill_in :username, with: 'John'
-    fill_in :description, with: 'Pets for me'
 
     click_button 'Submit'
     expect(page).to have_current_path("/applications/new")
