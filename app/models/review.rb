@@ -5,6 +5,6 @@ class Review < ApplicationRecord
   validates_presence_of :title, :rating, :content
 
   def user_name
-    User.joins(:reviews).find_by(id: user_id).name
+    self.user.name
   end
 end
