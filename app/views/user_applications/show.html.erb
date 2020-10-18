@@ -35,7 +35,7 @@
     <%= submit_tag('Search') %>
   <% end %>
 
-  <% @search.each do |pet| %>
+  <% @pets.each do |pet| %>
     <p><%= link_to(pet.name, "/pets/#{pet.id}") %></p>
     <p><%= button_to("Adopt #{pet.name}", "/applications/#{@application.id}/#{pet.id}", method: :patch) %></p>
   <% end %>
