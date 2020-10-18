@@ -1,6 +1,18 @@
 require 'rails_helper'
 
 describe User, type: :model do
+  describe 'attributes' do
+    it 'has name, address, city, state, and zip' do
+      user = build(:user)
+
+      expect(user).to respond_to(:name)
+      expect(user).to respond_to(:address)
+      expect(user).to respond_to(:city)
+      expect(user).to respond_to(:state)
+      expect(user).to respond_to(:zip)
+    end 
+  end
+
   describe 'relationships' do
     it { should have_many :reviews }
     it { should have_many :user_applications }

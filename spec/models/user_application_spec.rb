@@ -1,6 +1,16 @@
 require 'rails_helper'
 
 describe UserApplication, type: :model do
+  describe 'attributes' do
+    it 'has description, status and user_id' do
+      application = build(:user_application)
+
+      expect(application).to respond_to(:description)
+      expect(application).to respond_to(:status)
+      expect(application).to respond_to(:user_id)
+    end 
+  end
+
   describe 'relationships' do
     it { should belong_to :user }
     it { should have_many :application_pets }
