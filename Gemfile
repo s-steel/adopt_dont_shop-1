@@ -40,6 +40,7 @@ group :development, :test do
   gem 'faker'
   gem 'shoulda-matchers'
   gem 'capybara'
+  gem 'database_cleaner-active_record'
   gem 'launchy'
   gem 'simplecov'
   gem 'pry'

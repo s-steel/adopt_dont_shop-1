@@ -9,7 +9,7 @@ class Pet < ApplicationRecord
     where('name like ?', "%#{pet_name}%")
   end
 
-  def shelter_name(shelter_id)
-    Shelter.joins(:pets).find_by(id: shelter_id).name
+  def shelter_name
+    self.shelter.name
   end
 end

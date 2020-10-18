@@ -9,7 +9,7 @@
   <img src=<%= pet.image %> width="400" height="300">
   <p>Age: <%= pet.approximate_age %></p>
   <p>Sex: <%= pet.sex %></p>
-  <p>Current Shelter: <%= link_to("#{pet.shelter_name(pet.shelter_id)}", "/shelters/#{pet.shelter_id}") %></p>
+  <p>Current Shelter: <%= link_to("#{pet.shelter_name}", "/shelters/#{pet.shelter_id}") %></p>
   <h4><%= link_to("Update #{pet.name}'s Information", "/pets/#{pet.id}/edit") %></h4>
   <%= button_to("Delete #{pet.name}", "/pets/#{pet.id}", method: :delete) %>
 <% end %>

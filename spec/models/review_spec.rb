@@ -13,13 +13,10 @@ describe Review, type: :model do
   end
 
   describe 'class methods' do
-    let!(:shelter) { create(:shelter, name: 'Best Test Shelter') }
-    let!(:user) { create(:user, name: 'Jim') }
-    let!(:review) { create(:review, title: 'Best Shelter!', rating: 4, 
-                          content: 'Great!', shelter_id: shelter.id, user_id: user.id) }
+    let(:review) { create(:review) }
    
     it '.user_name' do
-      expect(review.user_name).to eq('Jim')
+      expect(review.user_name).to eq(review.user.name)
     end 
   end
 end
