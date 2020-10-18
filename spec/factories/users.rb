@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :user do
     name { Faker::Name.name }
     address { Faker::Address.street_address }
-    city { Faker::Address.city_prefix + Faker::Address.city_suffix } 
+    city { "#{Faker::Address.city_prefix}#{Faker::Address.city_suffix}" } 
     state { Faker::Address.state_abbr }
     zip { Faker::Address.zip }
   end 

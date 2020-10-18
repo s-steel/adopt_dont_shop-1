@@ -17,7 +17,7 @@ RSpec.describe '/applications/new', type: :feature do
     end
 
     context 'when the user is a valid user' do
-      xit 'can submit form' do
+      it 'can submit form' do
         user = create(:user)
 
         fill_in :username, with: user.name
@@ -31,7 +31,7 @@ RSpec.describe '/applications/new', type: :feature do
         fill_in :username, with: 'John'
         click_button 'Submit'
 
-        expect(page).to have_current_path("/applications/new")
+        expect(page).to have_current_path(applications_new_path)
         expect(page).to have_content('ERROR: User could not be found')
       end
     end
