@@ -42,9 +42,14 @@ describe 'application show page' do
   let!(:application_pet2) { create(:application_pet, user_application_id: user_application.id, pet_id: pet2.id) }
 
   it 'shows submitted application' do
+    fill_in :search, with: pet1.name
+    click_button 'Search'
+    expect(page).to have_content(pet1.name)
+    expect(page).to have_button("Adopt #{pet1.name}")
+    click_button "Adopt #{pet1.name}"
     expect(page).to have_content('Why would you make a good pet owner?')
     expect(page).to have_button('Submit Application')
-    expect(page).to have_text_area(:description)
+    expect(page).to have_field(:description)
     click_button 'Submit Application'
     expect(page).to have_content('ERROR: You must fill out why you would be a good pet owner')
     fill_in :description, with: 'I like pets'

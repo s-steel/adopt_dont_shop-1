@@ -5,8 +5,9 @@ class Pet < ApplicationRecord
 
   validates_presence_of :name
 
-  def self.search(name)
-    where(name: name)
+  def self.search(pet_name)
+
+    where('lower(name) like ?', "%#{pet_name.downcase}%")
   end
 
   def shelter_name
