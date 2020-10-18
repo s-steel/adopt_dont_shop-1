@@ -5,8 +5,8 @@ class Pet < ApplicationRecord
 
   validates_presence_of :name
 
-  def self.search(name)
-    where(name: name)
+  def self.search(pet_name)
+    where('name like ?', "%#{pet_name}%")
   end
 
   def shelter_name(shelter_id)
