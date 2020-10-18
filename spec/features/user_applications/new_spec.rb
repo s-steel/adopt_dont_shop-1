@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'application new page' do
-  let!(:user) { create(:user, name: 'Rick', address: '1 st.', city: 'Denver', state: 'CO', zip: 12244) }
+RSpec.describe '/applications/new', type: :feature do
+  let!(:user) { create(:user) }
 
   before do
     visit "/applications/new"

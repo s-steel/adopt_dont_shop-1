@@ -9,7 +9,7 @@ describe 'application show page' do
     visit "/applications/#{user_application.id}"
   end
 
-  it 'show application with no pets' do
+  xit 'show application with no pets' do
     expect(page).to have_content("Application #{user_application.id}")
     expect(page).to have_content("Application Status")
     expect(page).to have_content(user_application.status)
@@ -28,7 +28,7 @@ describe 'application show page' do
   let!(:pet2) { create(:pet, name: 'Sean', approximate_age: 12, sex: 'Male', shelter_id: shelter1.id) }
   let!(:pet3) { create(:pet, name: 'Taylor', approximate_age: 1, sex: 'Female', shelter_id: shelter1.id) }
 
-  it 'add pets to application' do
+  xit 'add pets to application' do
     expect(page).to have_content("Add Pets to Application")
     fill_in :search, with: pet1.name
     click_button 'Search'
@@ -41,7 +41,7 @@ describe 'application show page' do
   let!(:application_pet1) { create(:application_pet, user_application_id: user_application.id, pet_id: pet1.id) }
   let!(:application_pet2) { create(:application_pet, user_application_id: user_application.id, pet_id: pet2.id) }
 
-  it 'shows submitted application' do
+  xit 'shows submitted application' do
     fill_in :search, with: pet1.name
     click_button 'Search'
     expect(page).to have_content(pet1.name)
