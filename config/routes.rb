@@ -29,4 +29,10 @@ Rails.application.routes.draw do
   post '/shelters/:id', to: 'reviews#create'
   patch '/shelters/:id/reviews/:review_id', to: 'reviews#update'
   delete '/shelters/:id/reviews/:review_id', to: 'reviews#destroy'
+
+  get '/applications/new', to: 'user_applications#new'
+  get '/applications/:id', to: 'user_applications#show'
+  post '/applications/:id', to: 'user_applications#create'
+  patch '/applications/:id', to: 'user_applications#update'
+  patch '/applications/:id/:pet_id', to: 'user_applications#update_pets'
 end

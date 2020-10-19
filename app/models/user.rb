@@ -1,9 +1,6 @@
 class User < ApplicationRecord
   has_many :reviews
-
-  def reviews
-    Review.where(user_id: self.id)
-  end
+  has_many :user_applications
 
   def average_review_rating
     return 0 if reviews.empty?

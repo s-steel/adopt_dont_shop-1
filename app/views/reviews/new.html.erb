@@ -2,10 +2,6 @@
 
 <%= form_tag("/shelters/#{@shelter_id}", method: :post) do %>
 
-<% if flash[:error] %>
-  <%= flash[:error] %>
-<% end %>
-
   <div>
     <%= label_tag "Title" %>
     <%= text_field_tag :title %>
