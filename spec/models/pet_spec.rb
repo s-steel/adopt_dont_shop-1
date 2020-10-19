@@ -12,7 +12,7 @@ describe Pet, type: :model do
       expect(pet).to respond_to(:status)
       expect(pet).to respond_to(:description)
       expect(pet).to respond_to(:shelter_id)
-    end 
+    end
   end
 
   describe 'validations' do
@@ -31,6 +31,10 @@ describe Pet, type: :model do
     it '#shelter_name' do
       expect(pet.shelter_name).to eq(pet.shelter.name)
     end
+
+    # it '#approval_status'
+    #   expect(pet.approval_status(user_application.id)).to eq(application_pets.pet_approval_status)
+    # end 
 
     # it '#search' do
     #   expect(self.search('Edna')).to eq(pet.name)

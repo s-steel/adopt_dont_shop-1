@@ -26,13 +26,13 @@
 <h4>Pets</h4>
 <% @admin_application.pets.each do |pet| %>
   <p><%= link_to("#{pet.name}", "/pets/#{pet.id}") %></p>
-  <% if params[:status] == "Approve #{pet.name}" %>
-    <p><%= pet.name %> Approved</p>
-  <% elsif params[:status] == "Reject #{pet.name}"%>
-    <p><%= pet.name %> Rejected</p>
+  <% if pet.approval_status(@admin_application.id) == 'Approved' %>
+    <p id='pet-approved'><%= pet.name %> Approved</p>
+  <% elsif pet.approval_status(@admin_application.id) == 'Rejected'%>
+    <p id='pet-rejected'><%= pet.name %> Rejected</p>
   <% else %>
-    <p><%= button_to("Approve #{pet.name}", "/admin/applications/#{@admin_application.id}", name:"pet_status") %></p>
-    <p><%= button_to("Reject #{pet.name}", "/admin/applications/#{@admin_application.id}", name:"pet_status") %></p>
+    <p><%= button_to("Approve #{pet.name}", "/admin/applications/#{@admin_application.id}", params: {pet_approval_status: 'Approved', pet_id: pet.id}, method: :patch) %></p>
+    <p><%= button_to("Reject #{pet.name}", "/admin/applications/#{@admin_application.id}", params: {pet_approval_status: 'Rejected', pet_id: pet.id}, method: :patch) %></p>
   <% end %>
 <% end %>
 

@@ -14,4 +14,8 @@ class Pet < ApplicationRecord
   def shelter_name
     self.shelter.name
   end
+
+  def approval_status(application_id)
+     application_pets.where(user_application_id: application_id).first.pet_approval_status
+  end
 end
