@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :user_application do
+    status { "In Progress" }
     user
 
     trait :with_pets do
