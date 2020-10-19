@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe '/applications/new', type: :feature do
-  describe 'layout' do
+  describe 'page layout' do
     it 'has content' do
       visit applications_new_path
 
