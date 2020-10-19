@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'users/:id', type: :feature do
   describe 'page layout' do
     context 'user information' do
-      it 'see all user information' do
+      it 'can see all user information' do
         user = create(:user)
 
         visit "users/#{user.id}"
