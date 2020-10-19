@@ -26,7 +26,7 @@
 <h4>Pets</h4>
 <% @admin_application.pets.each do |pet| %>
   <p><%= link_to("#{pet.name}", "/pets/#{pet.id}") %></p>
-  <p><%= button_to("Approve #{pet.name}", "/admin/applications/#{@admin_application.id}", method: :patch) %></p>
+  <p><%= button_to("Approve #{pet.name}", "/admin/applications/#{@admin_application.id}", method: :patch, :params => { state: 'approved'}) %></p>
   <p><%= button_to("Reject #{pet.name}", "/admin/applications/#{@admin_application.id}", method: :patch) %></p>
 <% end %>
 
