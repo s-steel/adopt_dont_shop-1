@@ -134,6 +134,28 @@ RSpec.describe 'applications/:id', type: :feature do
           expect(page).to have_content("#{@application.pets[0].name} Rejected")
         end
       end
+
+      it 'approves application when all pets are approved' do
+        click_button "Approve #{@application.pets[0].name}"
+        click_button "Approve #{@application.pets[1].name}"
+        click_button "Approve #{@application.pets[2].name}"
+        expect(page).to have_current_path("/admin/applications/#{@application.id}")
+
+        within '#application-status' do
+          expect(page).to have_content('Approved')
+        end
+      end
+
+      it 'rejects application when a pet has been rejected' do
+        click_button "Approve #{@application.pets[0].name}"
+        click_button "Reject #{@application.pets[1].name}"
+        click_button "Approve #{@application.pets[2].name}"
+        expect(page).to have_current_path("/admin/applications/#{@application.id}")
+
+        within '#application-status' do
+          expect(page).to have_content('Rejected')
+        end
+      end
     end
   end
 end
