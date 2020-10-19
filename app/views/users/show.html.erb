@@ -11,7 +11,7 @@
 <% unless @user.reviews.empty? %>
 
   <h4><%= @user.name %>'s Average Review Rating</h4>
-  <p><%= @user.average_review_rating %> / 5</p>
+  <p><%= @user.average_review_rating.round(1) %> / 5</p>
 
   <section id='highlighted-reviews'>
     <h3>Highlighted Reviews</h3>
