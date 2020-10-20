@@ -175,7 +175,7 @@ RSpec.describe 'applications/:id', type: :feature do
         click_button "Approve #{application1.pets[2].name}"
 
         visit "/admin/applications/#{application2.id}"
-        expect(page).to have_content("We're sorry. #{pet3.name} has an approved application on them") 
+        expect(page).to have_content("We're sorry. #{pet3.name} has an approved application on them")
       end
     end
   end

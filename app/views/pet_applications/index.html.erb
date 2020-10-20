@@ -1,1 +1,9 @@
 <h1>List of Applicants</h1>
+
+<% if @user_apps.empty? %>
+  <h3>There are no applications for this pet yet.</h3>
+<% else %>
+  <% @user_apps.each do |user_app| %>
+    <h3><%= link_to(user_app.user_name, "/applications/#{user_app.id}") %></h3>
+  <% end %>
+<% end %>

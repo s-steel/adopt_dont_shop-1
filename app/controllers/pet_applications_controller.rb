@@ -1,6 +1,6 @@
 class PetApplicationsController < ApplicationController
   def index
     pet = Pet.find(params[:id])
-require 'pry'; binding.pry
+    @user_apps = pet.user_applications
   end
 end
