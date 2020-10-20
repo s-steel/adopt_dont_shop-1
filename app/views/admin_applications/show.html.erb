@@ -26,7 +26,11 @@
 <h4>Pets</h4>
 <% @admin_application.pets.each do |pet| %>
   <p><%= link_to("#{pet.name}", "/pets/#{pet.id}") %></p>
-  <% if pet.approval_status(@admin_application.id) == 'Approved' %>
+  <% break if (@admin_application.status == 'Approved') %>
+
+  <% if pet.approved_application? %>
+    <p>We're sorry. <%= pet.name %> has an approved application on them. </p>
+  <% elsif pet.approval_status(@admin_application.id) == 'Approved' %>
     <p id='pet-approved'><%= pet.name %> Approved</p>
   <% elsif pet.approval_status(@admin_application.id) == 'Rejected'%>
     <p id='pet-rejected'><%= pet.name %> Rejected</p>
