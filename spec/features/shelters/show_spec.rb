@@ -76,4 +76,18 @@ describe 'shelter show page' do
     expect(page).to_not have_content(review.content)
     expect(page).to_not have_content(user.name)
   end
+
+  it 'can see shelter statistics' do
+    expect(page).to have_content('Average Review:')
+    expect(page).to have_content('Number of Pets at this Shelter:')
+    expect(page).to have_content('Number of Applications on File:')
+    expect(shelter.average_review_rating).to eq(5)
+    # expect(shelter.pet_count).to eq(3.5)
+    # expect(shelter.number_applications).to eq(3.5)
+
+  end
+
+  it 'cannot delete a shelter with approved pet applications' do
+    expect(page).to_not have_content('Delete Shelter')
+  end
 end

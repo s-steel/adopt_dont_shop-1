@@ -8,10 +8,16 @@
 <p><%= @shelter.state %></p>
 <p><%= @shelter.zip %></p>
 
+<p>Average Review: <%= @shelter.average_review_rating.round(1) %></p>
+<p>Number of Pets at this Shelter: <%= @shelter.pet_count %></p>
+<p>Number of Applications on File: <%= @shelter.number_applications %></p>
+
 <h4><%= link_to("See All Pets at #{@shelter.name}", "/shelters/#{@shelter.id}/pets") %></h4>
 
 <h5><%= link_to("Update Shelter", "/shelters/#{@shelter.id}/edit") %></h5>
-<%= button_to("Delete Shelter", "/shelters/#{@shelter.id}", method: :delete) %>
+<% if @shelter.pending_pets? && (@shelter.pet_count > 0) %>
+  <%= button_to("Delete Shelter", "/shelters/#{@shelter.id}", method: :delete) %>
+<% end %>
 
 <h3>Reviews</h3>
 <h5><%= link_to('Add Review', "/shelters/#{@shelter.id}/reviews/new") %></h5>

@@ -22,4 +22,8 @@ class Pet < ApplicationRecord
   def approved_application?
     !(user_applications.select(:status).where("status = ?", "Approved").empty?)
   end
+
+  def application_count
+    user_applications.count
+  end
 end
