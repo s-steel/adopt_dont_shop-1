@@ -1,23 +1,14 @@
 <h5><%= link_to('Shelters Index', '/shelters') %></h5>
 <h5><%= link_to('Pets Index', '/pets') %></h5>
 
-<h1>Edit <%= @shelter.name %>'s Information</h1>
-
-<%= form_tag("/shelters/#{@shelter.id}", method: :patch) do %>
-  <%= label_tag 'Name' %>
-  <%= text_field_tag :name, @shelter.name %>
-
-  <%= label_tag 'Address' %>
-  <%= text_field_tag :address, @shelter.address %>
-
-  <%= label_tag 'City' %>
-  <%= text_field_tag :city, @shelter.city %>
-
-  <%= label_tag 'State' %>
-  <%= text_field_tag :state, @shelter.state %>
-
-  <%= label_tag 'zip' %>
-  <%= text_field_tag :zip , @shelter.zip %>
-
-  <%= submit_tag('Update Shelter Information') %>
-<% end %>
+<%= render partial: 'form', locals: {
+                                  header: "Edit #{@shelter.name}'s Information",
+                                  path: "/shelters/#{@shelter.id}",
+                                  method: :patch,
+                                  submit_text: 'Update Shelter Information',
+                                  shelter_name: "#{@shelter.name}",
+                                  shelter_address: "#{@shelter.address}",
+                                  shelter_city: "#{@shelter.city}",
+                                  shelter_state: "#{@shelter.state}",
+                                  shelter_zip: "#{@shelter.zip}"
+                                  } %>

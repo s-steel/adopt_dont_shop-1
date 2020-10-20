@@ -1,24 +1,14 @@
 <h5><%= link_to('Shelters Index', '/shelters') %></h5>
 <h5><%= link_to('Pets Index', '/pets') %></h5>
 
-<h1>Create a New Shelter</h1>
-
-<%= form_tag('/shelters', method: :post) do %>
-  <%= label_tag 'Name' %>
-  <%= text_field_tag :name %>
-
-  <%= label_tag 'Address' %>
-  <%= text_field_tag :address %>
-
-  <%= label_tag 'City' %>
-  <%= text_field_tag :city %>
-
-  <%= label_tag 'State' %>
-  <%= text_field_tag :state %>
-
-  <%= label_tag 'zip' %>
-  <%= text_field_tag :zip %>
-
-  <%= submit_tag('Create Shelter') %>
-<% end %>
-
+<%= render partial: 'form', locals: {
+                                header: 'Create a New Shelter',
+                                path: '/shelters',
+                                method: :post,
+                                submit_text: 'Create Shelter',
+                                shelter_name: nil,
+                                shelter_address: nil,
+                                shelter_city: nil,
+                                shelter_state: nil,
+                                shelter_zip: nil
+                                } %>

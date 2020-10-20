@@ -1,20 +1,13 @@
-<h1>Add a New Adoptable Pet</h1>
 
-<%= form_tag("/shelters/#{@shelter_id}/pets", method: :post) do %>
-  <%= label_tag "Name" %>
-  <%= text_field_tag :name %>
-
-  <%= label_tag "Image" %>
-  <%= text_field_tag :image %>
-
-  <%= label_tag "Description" %>
-  <%= text_field_tag :description %>
-
-  <%= label_tag "Age" %>
-  <%= text_field_tag :approximate_age %>
-
-  <%= label_tag "Sex" %>
-  <%= text_field_tag :sex %>
-  
-  <%= submit_tag("Add Pet") %>
-<% end %>
+<%= render partial: 'form', locals: {
+                                header: 'Add a New Adoptable Pet',
+                                path: "/shelters/#{@shelter_id}/pets",
+                                method: :post,
+                                submit_text: 'Add Pet',
+                                pet_name: nil,
+                                pet_image: nil,
+                                pet_description: nil,
+                                pet_approximate_age: nil,
+                                pet_sex: nil,
+                                shelter_id: nil,
+                                } %>

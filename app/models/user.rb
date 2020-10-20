@@ -5,7 +5,7 @@ class User < ApplicationRecord
   def average_review_rating
     return 0 if reviews.empty?
 
-    reviews.average(:rating).round(1)
+    reviews.average(:rating)
   end
 
   def review_best_rating

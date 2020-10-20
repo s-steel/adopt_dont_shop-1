@@ -10,7 +10,7 @@ describe User, type: :model do
       expect(user).to respond_to(:city)
       expect(user).to respond_to(:state)
       expect(user).to respond_to(:zip)
-    end 
+    end
   end
 
   describe 'relationships' do
@@ -47,7 +47,7 @@ describe User, type: :model do
       review2 = create(:review, user: user, rating: 3)
       review3 = create(:review, user: user, rating: 5)
 
-      expect(user.average_review_rating).to eq(3.3)
+      expect(user.average_review_rating.round(1)).to eq(3.3)
     end
   end
 end

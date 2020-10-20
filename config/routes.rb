@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   patch '/pets/:id', to: 'pets#update'
   delete '/pets/:id', to: 'pets#destroy'
 
+  get '/pets/:id/pet_applications', to: 'pet_applications#index'
+
   get '/users/new', to: 'users#new'
   get '/users/:id', to: 'users#show'
   post '/users/:id', to: 'users#create'
@@ -35,4 +37,7 @@ Rails.application.routes.draw do
   post '/applications/:id', to: 'user_applications#create'
   patch '/applications/:id', to: 'user_applications#update'
   patch '/applications/:id/:pet_id', to: 'user_applications#update_pets'
+
+  get '/admin/applications/:id', to: 'admin_applications#show'
+  patch '/admin/applications/:id', to: 'admin_applications#update'
 end
