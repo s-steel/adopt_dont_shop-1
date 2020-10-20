@@ -18,4 +18,8 @@ class Pet < ApplicationRecord
   def approval_status(application_id)
      application_pets.where(user_application_id: application_id).first.pet_approval_status
   end
+
+  def approved_application?
+    !(user_applications.select(:status).where("status = ?", "Approved").empty?)
+  end
 end

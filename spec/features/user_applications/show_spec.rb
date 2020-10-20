@@ -109,7 +109,7 @@ RSpec.describe 'applications/:id', type: :feature do
       end
     end
 
-    context 'as an admin' do
+    context 'when a user is an admin' do
       before do
         @application = create(:user_application, :with_pets, pet_count: 3)
         visit "/admin/applications/#{@application.id}"
@@ -155,6 +155,27 @@ RSpec.describe 'applications/:id', type: :feature do
         within '#application-status' do
           expect(page).to have_content('Rejected')
         end
+      end
+
+      it 'can see if pet has an aprroved application on them' do
+        application1 = create(:user_application)
+        application2 = create(:user_application)
+        pet1 = create(:pet)
+        pet2 = create(:pet)
+        pet3 = create(:pet)
+
+        create(:application_pet, user_application_id: application1.id, pet_id: pet1.id)
+        create(:application_pet, user_application_id: application1.id, pet_id: pet2.id)
+        create(:application_pet, user_application_id: application1.id, pet_id: pet3.id)
+        create(:application_pet, user_application_id: application2.id, pet_id: pet3.id)
+
+        visit "/admin/applications/#{application1.id}"
+        click_button "Approve #{application1.pets[0].name}"
+        click_button "Approve #{application1.pets[1].name}"
+        click_button "Approve #{application1.pets[2].name}"
+
+        visit "/admin/applications/#{application2.id}"
+        expect(page).to have_content("We're sorry. #{pet3.name} has an approved application on them") 
       end
     end
   end
