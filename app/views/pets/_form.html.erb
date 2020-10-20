@@ -1,0 +1,22 @@
+<h1><%= header %></h1>
+
+<%= form_tag(path, method: method) do %>
+  <%= label_tag "Name" %>
+  <%= text_field_tag :name, pet_name %>
+
+  <%= label_tag "Image" %>
+  <%= text_field_tag :image, pet_image %>
+
+  <%= label_tag "Description" %>
+  <%= text_field_tag :description, pet_description %>
+
+  <%= label_tag "Age" %>
+  <%= text_field_tag :approximate_age, pet_approximate_age %>
+
+  <%= label_tag "Sex" %>
+  <%= text_field_tag :sex, pet_sex %>
+
+  <%= hidden_field_tag :shelter_id, shelter_id %>
+
+  <%= submit_tag(submit_text) %>
+<% end %>
