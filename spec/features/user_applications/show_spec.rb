@@ -101,11 +101,14 @@ RSpec.describe 'applications/:id', type: :feature do
       end
 
       xit 'can see pending application content' do
+        new_application = create(:user_application, :with_pets, pet_count: 3)
+
+        visit "/applications/#{new_application.id}"
         fill_in :description, with: 'I like pets'
         click_button 'Submit Application'
 
-        expect(page).to have_current_path("/applications/#{@application.id}")
-        expect(@application.status).to eq('Pending')
+        expect(page).to have_current_path("/applications/#{new_application.id}")
+        expect(new_application.status).to eq('Pending')
       end
     end
 
@@ -180,19 +183,3 @@ RSpec.describe 'applications/:id', type: :feature do
     end
   end
 end
-
-#     expect(page).to have_content("Application #{user_application.id}")
-#     expect(page).to have_content("Application Status")
-#     expect(user_application.status).to eq('Pending')
-#     expect(page).to have_content(user_application.status)
-#     expect(page).to have_content(user_application.user_name)
-#     expect(page).to have_content(user_application.user_address)
-#     expect(page).to have_content(user_application.user_city)
-#     expect(page).to have_content(user_application.user_state)
-#     expect(page).to have_content(user_application.user_zip)
-#     expect(page).to have_content("Description")
-#     expect(page).to have_content(user_application.description)
-#     expect(page).to have_content("Pets")
-#     expect(page).to have_link(pet1.name)
-#   end
-# end
