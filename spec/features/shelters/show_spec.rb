@@ -79,7 +79,7 @@ RSpec.describe '/sheleters/:id', type: :feature do
       end
 
       it 'can see number of pets at the shelter' do
-        shelter = create(:shelter, :with_pets, pet_count: 3) 
+        shelter = create(:shelter, :with_pets, pet_count: 3)
 
         visit "/shelters/#{shelter.id}"
         expect(page).to have_content('Number of Pets at this Shelter:')
@@ -87,47 +87,65 @@ RSpec.describe '/sheleters/:id', type: :feature do
       end
 
       it 'can see the total number of applications for pets at shelter' do
-        shelter = create(:shelter, :with_pets, pet_count: 3) 
+        shelter = create(:shelter, :with_pets, pet_count: 3)
 
-        create(:application_pet, pet: shelter.pets[0]) 
-        create(:application_pet, pet: shelter.pets[1]) 
-        create(:application_pet, pet: shelter.pets[2]) 
-        create(:application_pet, pet: shelter.pets[2]) 
+        create(:application_pet, pet: shelter.pets[0])
+        create(:application_pet, pet: shelter.pets[1])
+        create(:application_pet, pet: shelter.pets[2])
+        create(:application_pet, pet: shelter.pets[2])
 
         visit "/shelters/#{shelter.id}"
         expect(page).to have_content('Number of Applications on File:')
         expect(shelter.number_applications).to eq(4)
       end
-    end 
+    end
 
     context 'shelter deletion constraints' do
       it 'can not delete shelter with approved applications for pets' do
-        shelter = create(:shelter, :with_pets, pet_count: 3) 
+        shelter = create(:shelter, :with_pets, pet_count: 3)
 
-        application1 = create(:user_application) 
-        application2 = create(:user_application) 
+        application1 = create(:user_application)
+        application2 = create(:user_application)
 
-        create(:application_pet, user_application: application1, pet: shelter.pets[0]) 
-        create(:application_pet, user_application: application1, pet: shelter.pets[1]) 
-        create(:application_pet, user_application: application1, pet: shelter.pets[2]) 
-        create(:application_pet, user_application: application2, pet: shelter.pets[2]) 
+        create(:application_pet, user_application: application1, pet: shelter.pets[0])
+        create(:application_pet, user_application: application1, pet: shelter.pets[1])
+        create(:application_pet, user_application: application1, pet: shelter.pets[2])
+        create(:application_pet, user_application: application2, pet: shelter.pets[2])
 
         visit "/shelters/#{shelter.id}"
-        expect(page).to have_button('Delete Shelter') 
+        expect(page).to have_button('Delete Shelter')
 
         visit "/admin/applications/#{application2.id}"
         click_button "Approve #{shelter.pets[2].name}"
 
         visit "/shelters/#{shelter.id}"
-        expect(page).to_not have_button('Delete Shelter') 
+        expect(page).to_not have_button('Delete Shelter')
       end
 
       it 'can not delete shelter with approved applications for pets' do
-        shelter = create(:shelter, :with_pets, pet_count: 3) 
+        shelter = create(:shelter, :with_pets, pet_count: 3)
 
         visit "/shelters/#{shelter.id}"
-        expect(page).to have_button('Delete Shelter') 
+        expect(page).to have_button('Delete Shelter')
         click_button 'Delete Shelter'
+      end
+
+      it 'deleting a shelter also deletes all its pets' do
+        shelter = create(:shelter, :with_pets, pet_count: 3)
+        expect(Pet.all.count).to eq(3)
+        visit "/shelters/#{shelter.id}"
+        expect(page).to have_button('Delete Shelter')
+        click_button 'Delete Shelter'
+        expect(Pet.all.count).to eq(0)
+      end
+
+      it 'deleting a shelter also deletes all its pets' do
+        shelter = create(:shelter, :with_reviews, review_count: 3)
+        expect(Review.all.count).to eq(3)
+        visit "/shelters/#{shelter.id}"
+        expect(page).to have_button('Delete Shelter')
+        click_button 'Delete Shelter'
+        expect(Review.all.count).to eq(0)
       end
     end
   end
