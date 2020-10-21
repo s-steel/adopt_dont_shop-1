@@ -11,6 +11,8 @@
 
 <h3><%= link_to('Update Information', "/pets/#{@pet.id}/edit") %></h3>
 
-<%= button_to('Delete Pet', "/pets/#{@pet.id}", method: :delete) %>
+<% if !(@pet.approved_application?) %>
+  <%= button_to('Delete Pet', "/pets/#{@pet.id}", method: :delete) %>
+<% end %>
 
 <h3><%= link_to("View all applications for #{@pet.name}", "/pets/#{@pet.id}/pet_applications") %></h3>

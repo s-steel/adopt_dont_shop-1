@@ -1,93 +1,152 @@
 require 'rails_helper'
 
-describe 'shelter show page' do
-  let!(:shelter) do
-    create(
-      :shelter,
-      name: 'Test Shelter 1',
-      address: '1 Test St.',
-      city: 'Denver',
-      state: 'CO',
-      zip: 12346
-    )
+RSpec.describe '/sheleters/:id', type: :feature do
+  describe 'general layout' do
+    before do
+      @shelter = create(:shelter)
+      visit "/shelters/#{@shelter.id}"
+    end
+
+    it 'can see shelters index link' do
+      expect(page).to have_link('Shelters Index')
+      click_link('Shelters Index')
+      expect(page).to have_current_path('/shelters')
+    end
+
+    it 'can see pets index link' do
+      expect(page).to have_link('Pets Index')
+      click_link('Pets Index')
+      expect(page).to have_current_path('/pets')
+    end
+
+    it 'can see shelter information' do
+      expect(page).to have_content(@shelter.name.to_s)
+      expect(page).to have_content(@shelter.address.to_s)
+      expect(page).to have_content(@shelter.city.to_s)
+      expect(page).to have_content(@shelter.state.to_s)
+      expect(page).to have_content(@shelter.zip.to_s)
+    end
+
+    it 'can see all pets a shelter link' do
+      expect(page).to have_link("See All Pets at #{@shelter.name}")
+      click_link("See All Pets at #{@shelter.name}")
+      expect(page).to have_current_path("/shelters/#{@shelter.id}/pets")
+    end
+
+    it 'can see update shelter link' do
+      expect(page).to have_link('Update Shelter')
+    end
   end
 
-  let!(:user) { create(:user, name: 'Jim Jones') }
-  let!(:review) { create(:review, title: 'Great!', rating: 5,
-          content: 'Really good', shelter_id: shelter.id, user_id: user.id) }
+  describe 'functionality' do
+    context 'when a shelter has reviews' do
+      it 'can see reviews' do
+        shelter = create(:shelter, :with_reviews)
 
-  before do
-    visit "shelters/#{shelter.id}"
-  end
+        visit "/shelters/#{shelter.id}"
+        expect(page).to have_content('Reviews')
+        expect(page).to have_content(shelter.reviews[0].title)
+        expect(page).to have_content(shelter.reviews[0].rating)
+        expect(page).to have_content(shelter.reviews[0].content)
+        expect(page).to have_content(shelter.reviews[0].user.name)
+      end
 
-  it 'can see shelters index link' do
-    expect(page).to have_link('Shelters Index')
-    click_link('Shelters Index')
-    expect(page).to have_current_path('/shelters')
-  end
+      it 'can delete a review' do
+       shelter = create(:shelter, :with_reviews, review_count: 1)
 
-  it 'can see pets index link' do
-    expect(page).to have_link('Pets Index')
-    click_link('Pets Index')
-    expect(page).to have_current_path('/pets')
-  end
+        visit "/shelters/#{shelter.id}"
+        expect(page).to have_button('Delete Review')
+        click_button 'Delete Review'
+        expect(page).to have_current_path("/shelters/#{shelter.id}")
 
-  it 'can see shelter information' do
-    expect(page).to have_content(shelter.name.to_s)
-    expect(page).to have_content(shelter.address.to_s)
-    expect(page).to have_content(shelter.city.to_s)
-    expect(page).to have_content(shelter.state.to_s)
-    expect(page).to have_content(shelter.zip.to_s)
-  end
+        expect(page).to_not have_content(shelter.reviews[0].title)
+        expect(page).to_not have_content(shelter.reviews[0].rating)
+        expect(page).to_not have_content(shelter.reviews[0].content)
+        expect(page).to_not have_content(shelter.reviews[0].user.name)
+      end
+    end
 
-  it 'can see all pets a shelter link' do
-    expect(page).to have_link("See All Pets at #{shelter.name}")
-    click_link("See All Pets at #{shelter.name}")
-    expect(page).to have_current_path("/shelters/#{shelter.id}/pets")
-  end
+    context 'shelter statistics' do
+      it 'can see average review rating'do
+        shelter = create(:shelter)
+        review1 = create(:review, rating: 1, shelter: shelter)
+        review2 = create(:review, rating: 2, shelter: shelter)
+        review3 = create(:review, rating: 5, shelter: shelter)
 
-  it 'can see reviews' do
-    expect(page).to have_content('Reviews')
-    expect(page).to have_content(review.title)
-    expect(page).to have_content(review.rating)
-    expect(page).to have_content(review.content)
-    expect(page).to have_content(user.name)
-  end
+        visit "/shelters/#{shelter.id}"
+        expect(page).to have_content('Average Review:')
+        expect(shelter.average_review_rating.round(1)).to eq(2.7)
+      end
 
-  it 'can see update shelter link' do
-    expect(page).to have_link('Update Shelter')
-  end
+      it 'can see number of pets at the shelter' do
+        shelter = create(:shelter, :with_pets, pet_count: 3)
 
-  it 'can delete a shelter' do
-    expect(page).to have_button('Delete Shelter')
+        visit "/shelters/#{shelter.id}"
+        expect(page).to have_content('Number of Pets at this Shelter:')
+        expect(shelter.pet_count).to eq(3)
+      end
 
-    click_button 'Delete Shelter'
-    expect(page).to have_current_path('/shelters')
-  end
+      it 'can see the total number of applications for pets at shelter' do
+        shelter = create(:shelter, :with_pets, pet_count: 3)
 
-  it 'can delete a review' do
-    expect(page).to have_button('Delete Review')
+        create(:application_pet, pet: shelter.pets[0])
+        create(:application_pet, pet: shelter.pets[1])
+        create(:application_pet, pet: shelter.pets[2])
+        create(:application_pet, pet: shelter.pets[2])
 
-    click_button 'Delete Review'
-    expect(page).to have_current_path("/shelters/#{shelter.id}")
+        visit "/shelters/#{shelter.id}"
+        expect(page).to have_content('Number of Applications on File:')
+        expect(shelter.number_applications).to eq(4)
+      end
+    end
 
-    expect(page).to_not have_content(review.title)
-    expect(page).to_not have_content(review.rating)
-    expect(page).to_not have_content(review.content)
-    expect(page).to_not have_content(user.name)
-  end
+    context 'shelter deletion constraints' do
+      it 'can not delete shelter with approved applications for pets' do
+        shelter = create(:shelter, :with_pets, pet_count: 3)
 
-  it 'can see shelter statistics' do
-    expect(page).to have_content('Average Review:')
-    expect(page).to have_content('Number of Pets at this Shelter:')
-    expect(page).to have_content('Number of Applications on File:')
-    expect(shelter.average_review_rating).to eq(5)
-    # expect(shelter.pet_count).to eq(3.5)
-    # expect(shelter.number_applications).to eq(3.5)
+        application1 = create(:user_application)
+        application2 = create(:user_application)
 
-  end
+        create(:application_pet, user_application: application1, pet: shelter.pets[0])
+        create(:application_pet, user_application: application1, pet: shelter.pets[1])
+        create(:application_pet, user_application: application1, pet: shelter.pets[2])
+        create(:application_pet, user_application: application2, pet: shelter.pets[2])
 
-  it 'cannot delete a shelter with approved pet applications' do
-    expect(page).to_not have_content('Delete Shelter')
+        visit "/shelters/#{shelter.id}"
+        expect(page).to have_button('Delete Shelter')
+
+        visit "/admin/applications/#{application2.id}"
+        click_button "Approve #{shelter.pets[2].name}"
+
+        visit "/shelters/#{shelter.id}"
+        expect(page).to_not have_button('Delete Shelter')
+      end
+
+      it 'can not delete shelter with approved applications for pets' do
+        shelter = create(:shelter, :with_pets, pet_count: 3)
+
+        visit "/shelters/#{shelter.id}"
+        expect(page).to have_button('Delete Shelter')
+        click_button 'Delete Shelter'
+      end
+
+      it 'deleting a shelter also deletes all its pets' do
+        shelter = create(:shelter, :with_pets, pet_count: 3)
+        expect(Pet.all.count).to eq(3)
+        visit "/shelters/#{shelter.id}"
+        expect(page).to have_button('Delete Shelter')
+        click_button 'Delete Shelter'
+        expect(Pet.all.count).to eq(0)
+      end
+
+      it 'deleting a shelter also deletes all its pets' do
+        shelter = create(:shelter, :with_reviews, review_count: 3)
+        expect(Review.all.count).to eq(3)
+        visit "/shelters/#{shelter.id}"
+        expect(page).to have_button('Delete Shelter')
+        click_button 'Delete Shelter'
+        expect(Review.all.count).to eq(0)
+      end
+    end
   end
 end

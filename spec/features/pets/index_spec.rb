@@ -54,4 +54,21 @@ describe 'pet index page' do
     click_button "Delete #{pet1.name}"
     expect(page).to have_current_path('/pets')
   end
+
+  it 'cannot delete pets with approved applications' do
+    application1 = create(:user_application)
+    create(:application_pet, user_application: application1, pet: pet1)
+
+    visit "/admin/applications/#{application1.id}"
+    click_button "Approve #{pet1.name}"
+    visit "/pets"
+
+    within "#pet-#{pet1.id}" do
+      expect(page).to_not have_button("Delete #{pet1.name}")
+    end
+
+    within "#pet-#{pet2.id}" do
+      expect(page).to have_button("Delete #{pet2.name}")
+    end
+  end
 end

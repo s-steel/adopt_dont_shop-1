@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 describe 'pet show page' do
-  let(:shelter) { create(:shelter, name: 'Best Test Shelter') }
-  let(:pet) { create(:pet, name: 'Edna', approximate_age: 6, sex: 'Female', shelter_id: shelter.id) }
+  let(:pet) { create(:pet, name: 'Taylor', approximate_age: 6, sex: 'Male', description: 'Old')}
 
   before do
     visit "/pets/#{pet.id}"
@@ -62,5 +61,14 @@ describe 'pet show page' do
 
     click_button 'Delete Pet'
     expect(page).to have_current_path('/pets')
+  end
+
+  it 'cannot delete pets with approved applications' do
+    application1 = create(:user_application)
+    create(:application_pet, user_application: application1, pet: pet)
+    visit "/admin/applications/#{application1.id}"
+    click_button "Approve #{pet.name}"
+    visit "/pets/#{pet.id}"
+    expect(page).to_not have_button('Delete Pet')
   end
 end
